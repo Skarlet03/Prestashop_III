@@ -1,5 +1,6 @@
 package com.prestashop.tests.smoke_tests;
 
+import com.prestashop.utilities.TestBase;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,14 +16,9 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Product_Information {
-    WebDriver driver;
-
+public class Product_Information extends TestBase {
     @BeforeMethod
     void setup(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("http://automationpractice.com");
         driver.manage().window().maximize();
     }

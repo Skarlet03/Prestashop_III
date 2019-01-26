@@ -1,6 +1,7 @@
 package com.prestashop.tests.functional_tests;
 
 import com.github.javafaker.Faker;
+import com.prestashop.utilities.TestBase;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -15,18 +16,13 @@ import org.testng.annotations.Test;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class ContactUs {
-    WebDriver driver;
-    Actions actions;
-
+public class ContactUs extends TestBase {
     @BeforeMethod
     void setup(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("http://automationpractice.com");
         driver.manage().window().maximize();
     }
+
     Faker faker = new Faker();
     String email= faker.internet().emailAddress();
      /*

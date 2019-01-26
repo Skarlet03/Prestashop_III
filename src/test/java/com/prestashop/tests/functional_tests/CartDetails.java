@@ -1,6 +1,7 @@
 package com.prestashop.tests.functional_tests;
 
 import com.github.javafaker.Faker;
+import com.prestashop.utilities.TestBase;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,19 +13,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.swing.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Cart {
-    WebDriver driver;
-    Actions actions;
+public class CartDetails extends TestBase {
+
 
     @BeforeMethod
     void setup(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("http://automationpractice.com");
         driver.manage().window().maximize();
     }
@@ -47,7 +43,7 @@ public class Cart {
     int year;
 
     /*
-    Cart	Details
+    CartDetails	Details
             1. Open	browser
             2. Go	to http://automationpractice.com/index.php
             3. Click	on	any	product that	is	not	on sale
@@ -66,7 +62,7 @@ public class Cart {
             14. Verify confirmation	message	Product	successfully	added	to	your
             shopping	cart
             15. Dismiss	the	confirmation	window	by	clicking	on	the	x	icon
-            16. Hover	over	the	Cart	icon
+            16. Hover	over	the	CartDetails	icon
             17. Verify	that	correct	total	is	displayed
             18. Verify	that	total	is	correct	based	on	the	price	and	item	count	of	the
             products	you	added	to	cart.	(Shipping	is	always	$2)
