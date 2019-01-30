@@ -1,20 +1,22 @@
-package com.prestashop.tests.smoke_tests;
+package com.prestashop.tests.functional_tests.cart;
 
 import com.prestashop.pages.*;
 import com.prestashop.utilities.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class Product_Information extends TestBase {
+import static org.testng.Assert.*;
+
+public class ProductInformation extends TestBase {
 
     HomePage homePage;
     AddToCartPage addToCartPage;
     ItemDetailsPage itemDetailsFrame;
+
 
     @BeforeMethod
     public void setupPages() {
@@ -22,8 +24,8 @@ public class Product_Information extends TestBase {
         homePage = new HomePage();
         addToCartPage = new AddToCartPage();
         itemDetailsFrame = new ItemDetailsPage();
-    }
 
+    }
     /*
     Product information - price:
         1. Go	to	http://automationpractice.com/index.php
@@ -44,7 +46,7 @@ public class Product_Information extends TestBase {
         String priceSelected = itemDetailsFrame.price.getText();
         String nameSelected = itemDetailsFrame.name.getText();
         assertEquals(nameHome,nameSelected);
-        assertEquals(priceHome,priceSelected);
+        assertEquals(priceHome, priceSelected);
     }
 
     /*

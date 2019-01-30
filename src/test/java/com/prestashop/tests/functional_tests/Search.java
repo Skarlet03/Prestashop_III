@@ -1,29 +1,38 @@
 package com.prestashop.tests.functional_tests;
 
+import com.prestashop.pages.HomePage;
+import com.prestashop.pages.WebPageHeader;
 import com.prestashop.utilities.TestBase;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
+import org.openqa.selenium.WebElement;
+import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 public class Search extends TestBase {
+
+
+    HomePage homePage;
+    WebPageHeader webPageHeader;
+
     @BeforeMethod
-    void setup(){
-        driver.get("http://automationpractice.com");
-        driver.manage().window().maximize();
+    public void setupPages() {
+        driver.get(url);
+        homePage = new HomePage();
+        webPageHeader = new WebPageHeader();
     }
 
     @Test
     public void search(){
-        String searchTerm = "blouse";
-        driver.findElement(By.id("search_query_top")).sendKeys(searchTerm + Keys.ENTER);
-        Assert.assertTrue(driver.getTitle().equalsIgnoreCase("Search - My Store"));
-        Assert.assertTrue(driver.findElement(By.xpath("//span[@class='lighter']")).getText().toLowerCase().contains(searchTerm));
+        //List of all futured items
+        List<WebElement> listOfItems = homePage.listOfItems();
+        //Index position of chosen item
+        int indexChoose = random.nextInt(listOfItems.size());
+        String searchTerm = homePage.item(indexChoose, "name").getText().toLowerCase();
+        webPageHeader.searchBar.sendKeys(searchTerm + Keys.ENTER);
+        assertEquals(driver.getTitle(),"Search - My Store");
+        assertTrue(webPageHeader.searchHeader.getText().toLowerCase().contains(searchTerm));
     }
 }

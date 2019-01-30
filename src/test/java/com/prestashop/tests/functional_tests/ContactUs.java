@@ -1,26 +1,25 @@
 package com.prestashop.tests.functional_tests;
 
 import com.github.javafaker.Faker;
+import com.prestashop.pages.*;
 import com.prestashop.utilities.TestBase;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
+import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 public class ContactUs extends TestBase {
+
+    PersonalInformationPage personalInformationPage;
+    WebPageHeader webPageHeader;
+    ContactUsPage contactUsPage;
+
     @BeforeMethod
-    void setup(){
-        driver.get("http://automationpractice.com");
-        driver.manage().window().maximize();
+    public void setupPages() {
+        driver.get(url);
+        personalInformationPage = new PersonalInformationPage();
+        webPageHeader = new WebPageHeader();
+        contactUsPage = new ContactUsPage();
     }
 
     Faker faker = new Faker();
@@ -36,16 +35,15 @@ public class ContactUs extends TestBase {
      */
      @Test
      public void contactUs() {
-         driver.findElement(By.linkText("Contact us")).click();
-         Assert.assertTrue(driver.getTitle().equalsIgnoreCase("Contact us - My store"));
-         Select select = new Select(driver.findElement(By.id("id_contact")));
-         Random random = new Random();
-         select.selectByIndex(random.nextInt(select.getOptions().size()+2));
-         driver.findElement(By.id("email")).sendKeys(email);
-         driver.findElement(By.id("id_order")).sendKeys("12365");
-         driver.findElement(By.id("message")).sendKeys("Messege here");
-         driver.findElement(By.xpath("(//button[@type = 'submit'])[2]")).click();
-         Assert.assertTrue(driver.findElement(By.xpath("//p[@class='alert alert-success']")).getText().equalsIgnoreCase("Your message has been successfully sent to our team."));
+         webPageHeader.contactUs.click();
+         assertEquals(driver.getTitle(),"Contact us - My Store");
+         Select select = new Select(contactUsPage.departmentDropdown);
+         select.selectByIndex(random.nextInt(select.getOptions().size()));
+         personalInformationPage.email.sendKeys(email);
+         contactUsPage.order.sendKeys("12365");
+         contactUsPage.messageInput.sendKeys("Messege here");
+         contactUsPage.submitButton.click();
+         assertEquals(contactUsPage.alertMessage.getText(),"Your message has been successfully sent to our team.");
 
      }
 }
